@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <title>CET-6 英语学习工作台</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="app">
+
+  <!-- ========== Header ========== -->
+  <header class="header">
+    <div class="header-left">
+      <div class="header-logo">CET-6 学习工作台</div>
+      <div class="header-countdown">距离2026年12月六级考试还有 <strong id="countdown-days">--</strong> 天</div>
+    </div>
+    <div class="header-right">
+      <div class="header-date" id="header-date"></div>
+    </div>
+  </header>
+
+  <!-- ========== Navigation ========== -->
+  <nav class="nav-tabs" id="nav-tabs">
+    <button class="nav-tab active" data-module="dashboard">今日任务</button>
+    <button class="nav-tab" data-module="vocabulary">单词记忆</button>
+    <button class="nav-tab" data-module="speaking">口语练习</button>
+    <button class="nav-tab" data-module="dialogue">口语对话</button>
+    <button class="nav-tab" data-module="translation">翻译练习</button>
+    <button class="nav-tab" data-module="news">每日热点</button>
+    <button class="nav-tab" data-module="video">每日视频</button>
+    <button class="nav-tab" data-module="notebook">笔记本</button>
+  </nav>
+
+  <!-- ========== Main Content ========== -->
+  <main class="main-content">
+
+    <!-- ===== Dashboard Module ===== -->
+    <section class="module active" id="module-dashboard">
+      <div class="dashboard-hero">
+        <div class="countdown-display">2026年12月大学英语六级考试</div>
+        <div class="countdown-number" id="countdown-big">--</div>
+        <div class="countdown-unit">天</div>
+        <div class="progress-bar-container">
+          <div class="progress-bar-fill" id="daily-progress" style="width:0%"></div>
+        </div>
+        <div class="progress-text" id="progress-text">今日任务 0/0</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">今日学习任务</div>
+        <ul class="task-list" id="daily-tasks"></ul>
+      </div>
+
+      <div class="card">
+        <div class="card-title">番茄钟专注计时</div>
+        <div class="pomodoro-display">
+          <div class="pomodoro-time" id="pomodoro-time">25:00</div>
+          <div class="pomodoro-mode" id="pomodoro-mode">专注时间</div>
+        </div>
+        <div class="pomodoro-controls">
+          <button class="btn btn-primary" id="pomodoro-start">开始</button>
+          <button class="btn btn-ghost" id="pomodoro-pause">暂停</button>
+          <button class="btn btn-ghost" id="pomodoro-reset">重置</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Vocabulary Module ===== -->
+    <section class="module" id="module-vocabulary">
+      <div class="module-header">
+        <div class="module-title">六级词汇记忆</div>
+        <div class="module-desc">基于艾宾浩斯遗忘曲线，选择你对每个单词的熟悉程度</div>
+      </div>
+      <div id="vocab-content"></div>
+    </section>
+
+    <!-- ===== Speaking Module ===== -->
+    <section class="module" id="module-speaking">
+      <div class="module-header">
+        <div class="module-title">口语练习</div>
+        <div class="module-desc">六级口语考试(CET-SET6)真题与模拟题</div>
+      </div>
+      <div id="speaking-content"></div>
+    </section>
+
+    <!-- ===== Dialogue Module ===== -->
+    <section class="module" id="module-dialogue">
+      <div class="module-header">
+        <div class="module-title">口语对话</div>
+        <div class="module-desc">模拟六级口语Part 3互动讨论场景，与AI进行多轮英文对话</div>
+      </div>
+      <div id="dialogue-content"></div>
+    </section>
+
+    <!-- ===== Translation Module ===== -->
+    <section class="module" id="module-translation">
+      <div class="module-header">
+        <div class="module-title">翻译练习</div>
+        <div class="module-desc">六级段落翻译真题，提交后获得红色修订标记与评分</div>
+      </div>
+      <div id="translation-content"></div>
+    </section>
+
+    <!-- ===== News Module ===== -->
+    <section class="module" id="module-news">
+      <div class="module-header">
+        <div class="module-title">每日热点英文</div>
+        <div class="module-desc">每日一则英文新闻简报，附美音朗读与重点词汇</div>
+      </div>
+      <div id="news-content"></div>
+    </section>
+
+    <!-- ===== Video Module ===== -->
+    <section class="module" id="module-video">
+      <div class="module-header">
+        <div class="module-title">每日视频学习片段</div>
+        <div class="module-desc">经典美剧/英剧片段，附核心口语表达解析</div>
+      </div>
+      <div id="video-content"></div>
+    </section>
+
+    <!-- ===== Notebook Module ===== -->
+    <section class="module" id="module-notebook">
+      <div class="module-header">
+        <div class="module-title">学习笔记本</div>
+        <div class="module-desc">自动收录翻译与口语错误，支持手动记录</div>
+      </div>
+      <div class="notebook-tabs" id="notebook-tabs">
+        <button class="notebook-tab active" data-cat="all">全部</button>
+        <button class="notebook-tab" data-cat="translation">翻译错误</button>
+        <button class="notebook-tab" data-cat="speaking">口语错误</button>
+        <button class="notebook-tab" data-cat="vocabulary">拼写易错词</button>
+        <button class="notebook-tab" data-cat="manual">手动笔记</button>
+      </div>
+      <div id="notebook-list"></div>
+      <div class="note-add-area card">
+        <div class="card-title">新增笔记</div>
+        <textarea class="note-add-input" id="note-input" placeholder="输入笔记内容，支持纯文本或Markdown格式..."></textarea>
+        <div class="mt-8" style="display:flex;gap:8px;align-items:center;">
+          <select id="note-category" style="padding:6px 10px;font-size:13px;border:1px solid var(--border-dark);border-radius:var(--radius);font-family:var(--font);background:var(--bg);">
+            <option value="manual">手动笔记</option>
+            <option value="translation">翻译相关</option>
+            <option value="speaking">口语相关</option>
+            <option value="vocabulary">词汇相关</option>
+          </select>
+          <button class="btn btn-small" id="note-add-btn">保存笔记</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- Hidden audio element for TTS playback -->
+<audio id="hidden-audio" preload="auto"></audio>
+
+<script src="data.js"></script>
+<script src="core.js"></script>
+<script src="modules.js"></script>
+</body>
+</html>
