@@ -1,1 +1,0 @@
-{"passed":true,"engine":"WebKit","realIPad":false,"checks":["handwriting","marker","undo","eraser","text note","annotations survive reload","annotations isolated by chapter","dictionary autoplay remains available in reading mode","chapter Chinese labels","no overflow at 320 375 820 1024 1366"],"errors":[]}
