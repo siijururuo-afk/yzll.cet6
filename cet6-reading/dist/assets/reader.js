@@ -91,7 +91,7 @@ async function start(){
   [manifest,lexicon]=await Promise.all([load('data/manifest.json'),load('data/dictionary.json')]);
   if(!manifest?.articles?.length||!lexicon?.entries||!lexicon?.forms)throw new Error('资料结构不完整');
   await showDay(new URLSearchParams(location.hash.slice(1)).get('day')||saved.day,{restore:true});
-  if('serviceWorker' in navigator&&location.protocol!=='file:')navigator.serviceWorker.register('sw-reader.js').catch(()=>{});
+  if('serviceWorker' in navigator&&location.protocol!=='file:')navigator.serviceWorker.register('sw-colors.js').catch(()=>{});
  }catch(error){
   console.error('CET-6 data loading failed',error);
   const message=node('p','status','资料暂未加载成功。请重新加载，或检查网络连接。'),retry=node('button','retry','重新加载');retry.type='button';retry.onclick=start;$('reader').replaceChildren(message,retry);$('reader').setAttribute('aria-busy','false');
