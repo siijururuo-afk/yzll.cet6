@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "articlesLoaded": 106,
+  "targetWords": 5276,
+  "dictionaryEntries": 6494,
+  "checks": [
+    "script loading without fetch",
+    "deduplicated parallel loads",
+    "all article wrappers",
+    "file protocol",
+    "JSON fallback",
+    "retry after failure"
+  ],
+  "scope": "Node VM loader integration; not a physical-device test"
+}
