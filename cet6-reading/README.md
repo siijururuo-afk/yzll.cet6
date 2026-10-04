@@ -1,91 +1,86 @@
-# CET-6 文章背词网站
+# CET-6 全词库文章阅读与批注
 
-已一次性内置全部 26 篇原创双语文章；每个英文段落下面紧跟中文。Day 1–25 各 50 个目标词，Day 26 为 39 个，共 **1,289 个不同目标词**。章节编号不代表更新日期。阅读、查词均不调用 AI，不需要 API Key、数据库或付费服务。
+完整处理 exam-data/CETVocabulary 的 `cet_full_list.json`，不按“六级新增”标记筛选。原文件 5,278 条记录，统一大小写、合并同名条目后为 **5,276 个目标词**。全部安排进 **106 篇原创双语文章**：前 105 篇各 50 个目标词，第 106 篇 26 个。原先指定的 Day 1 词表已取消；第一篇与其余文章均从源词库分组。
 
-## 打开
+网站入口： https://siijururuo-afk.github.io/yzll.cet6/cet6-reading/dist/?v=full-v1
 
-电脑：完整解压后，直接用浏览器打开 **dist/index.html**。保留 assets 和 data 文件夹，不要单独移动 HTML。网站会按需读取同目录的离线 JavaScript 数据副本，无需网络或本地服务器。
+## 阅读与查词
 
-iPhone：优先在 Safari 打开已经部署的网站链接。iOS“文件”App 的 HTML 快速预览不等同于 Safari，可能不执行 JavaScript；若无法直接打开，请使用部署链接。网络版首次完整加载后会缓存文章和词典，支持离线阅读；缓存保留时间由浏览器决定。阅读记录保存在当前浏览器，换浏览器或清理数据不会保留。
+每个英文段落后紧跟完整中文译文。本文目标词黑色粗体，词后直接显示简短中文本文义。正文英文词均可点击，打开词典立即朗读原形；扬声器按钮可再次朗读。词典显示音标、词性、中文释义、可识别的变形说明及目标词本文语境。语音由设备的 `speechSynthesis` 提供，是否离线可听取决于英语语音是否可用。核心阅读、查词和下一篇均不调用 AI。
 
-也可以在项目目录运行：
+章节显示“第一篇、第二篇……”；“全部文章”可以跳转任意一篇。自动保存当前文章和阅读位置，无测试、解锁或打卡。
+
+## iPad 批注
+
+工具栏提供：阅读、手写笔、半透明标记笔、橡皮、文字批注、撤销。
+
+- 手写笔与标记笔：用 Apple Pencil、触控笔、手指或鼠标在正文段落上书写、划线或圈注。
+- 书写模式会接管正文触控；需要滚动页面或点词查义时，切换“阅读”。
+- 橡皮：点击笔画删除整个笔画，支持撤销。
+- 文字批注：点击英文词或段落后输入笔记，保存后显示在段落下方；点击笔记可编辑或删除。
+- 批注按文章自动保存在当前浏览器。重新打开会恢复；不同浏览器和设备之间不自动同步。清除浏览器网站数据会清除批注及阅读记录。
+- 手写笔画使用矢量数据并跟随对应段落缩放。换方向或改变字号导致正文重新换行时，笔画与具体词的相对位置可能发生变化；文字批注仍锚定原段落。
+
+采用 Safari 的 WebKit 引擎进行了模拟检查；没有声称在真实 iPad 或 Apple Pencil 硬件上测试。
+
+## 直接打开及本地服务器
+
+解压完整项目后，在电脑浏览器打开 `dist/index.html` 即可。保留 assets、data 文件夹；离线 JavaScript 数据副本按需加载当前文章，不需要网络。
+
+iPad 优先使用 Safari 打开部署链接。iOS“文件”App 的 HTML 快速预览可能不执行 JavaScript；它并不等同于 Safari。网络版本首次完整加载会缓存文章和词典，缓存是否长期保留由浏览器决定。
+
+可选服务器：
 
 ```bash
 python3 serve.py
 ```
 
-然后打开 http://127.0.0.1:8000/ 。可用 `--host 0.0.0.0 --port 8000` 供同一局域网内手机访问。
+打开 http://127.0.0.1:8000/ 。同一局域网手机可使用 `python3 serve.py --host 0.0.0.0 --port 8000`。
 
-## 使用
+## 数据范围与来源
 
-- 页面直接进入文章。目标词以黑色粗体显示，紧跟本文中文义。
-- 每一个英文正文单词都可以点击。词典显示原形、音标、词性、中文释义和变形说明。
-- 目标词额外显示本文句子和所在段落译文。Day 1 提供经人工整理的常见搭配及中文译义。
-- 点击单词打开词典时自动调用浏览器 `speechSynthesis` 朗读原形；扬声器按钮可再次朗读，优先选择本机英语语音。是否能离线发声取决于设备是否安装英语语音，以及浏览器是否提供该功能；资料阅读和查词始终不需要外部接口。
-- “全部文章”可跳转任何一篇，无锁定、测试或打卡要求。
-- 自动保存上次章节和每篇滚动位置。
+主词库：[exam-data/CETVocabulary](https://github.com/exam-data/CETVocabulary)，实际源快照提交 `7f21d0d9ad93c16a17849a24ccc4046e0f64c4af`。原 JSON 顶层 `四六级词汇词频排序表`，字段包含序号、词频、六级、单词、释义、其他拼写、分类、子分类。
 
-## 范围与来源
+所有行均纳入，不过滤六级 `★`。`may / May` 与 `march / March` 归一为同名词条，保留原记录与不同词义；没有删除其月份义。源中独立的拼写变体仍保留为独立目标词，其他拼写作为元数据。完整保留 `according to`、`baby boom`、`ought to` 三个词组及带重音的 `résumé`，并支持其点击。源词库之外的词可自然出现在文章中，但不计入目标数。
 
-主数据：[exam-data/CETVocabulary](https://github.com/exam-data/CETVocabulary)，实际读取 `cet_full_list.json`，提交 `7f21d0d9ad93c16a17849a24ccc4046e0f64c4af`。
+分组按分类、子分类和原始序号排序，每 50 词一组。仅按主题帮助组织文章，不声称严格高频排序。所有文章均在交付前原创完成，未复制考试原文。
 
-原文件是包含 `四六级词汇词频排序表` 数组的 JSON 对象。数组共 5,278 条；字段为 `序号、词频、六级、单词、释义、其他拼写、分类、子分类`，**没有音标和词性**。`六级: "★"` 是仓库标记的六级新增词，共 1,253 条；空值表示其他基础词，而不是新增六级词。
+参考：[AayuBal/cet-exams](https://github.com/AayuBal/cet-exams)，实际读取提交 `fcec49b83372539c92831989acbc2bd1b06aaac0`，用于阅读难度、语境及词典数据参考。补充词典来自 [ECDICT](https://github.com/skywind3000/ECDICT)。主词库没有音标和词性，相关信息来自补充词典；缺失条目由编辑补充并标注来源。正文义由写作者按语境选择。ECDICT 的部分旧式音标作显示标准化。
 
-目标范围是“仓库六级标记词 + 用户指定 Day 1 的 50 词”。将 `esthetic` 与 `aesthetic` 合并为一个目标词后，六级标记词为 1,252 个；Day 1 另外补充 37 个不在标记范围内的词，故总数为 **1,289**。其中 12 个 Day 1 词在主文件没有原形词条，另 25 个有词条但无六级标记。这些补充词明确记录来源，没有伪称来自主词库。
-
-完整主文件的基础词保留在即时词典，未被误计为六级新增目标词。拼写变体保留为元数据；源文件存在个别不标准或可疑的其他拼写，未自动把它们视为等价词。大小写、首尾空白已标准化，词形变化不另计目标词。
-
-参考仓库：[AayuBal/cet-exams](https://github.com/AayuBal/cet-exams)，提交 `fcec49b83372539c92831989acbc2bd1b06aaac0`。实际阅读了 `public/cet/papers/cet6/2024-12-1.pdf` 的阅读部分，以及 `src/data/writing/cet6-writing.js` 等材料。新文章为原创，没有复制真题正文。
-
-离线词典补充来自 [skywind3000/ECDICT](https://github.com/skywind3000/ECDICT) 和参考仓库的 CET 词汇文件。保存了生成所需的词典子集与字段。少量缺项在 `sources/dictionary-supplements.json` 中补充，`mindset` 与 `barracks` 的读音核对了 Cambridge Dictionary。ECDICT 的旧式音标符号做了显示标准化，部分条目仍保留其原有音标体系。简短本文义为人工按文章语境修订。
-
-最终词典包含 **5,760 个词条**，正文及示例的 **3,486 种表面形式**有预计算映射。所有正文形式都有音标、词性和中文释义。规则与词典变形表共同覆盖复数、三单、过去式、过去分词、现在分词、比较级、最高级、常见不规则形式与所有格；同形多义词不能仅靠词形解决全部语境歧义。
-
-## 完整性检查
-
-安装 Node.js 后，在项目根目录运行：
-
-```bash
-node scripts/validate.js
-```
-
-检查从捆绑的原始词库重新计算目标范围，而非只相信 manifest。结果写入 `VALIDATION.json`，包括全部 14 项验收检查、词典覆盖和最后一组数量。静态阅读不需要 Node.js。
-
-需重建同一数据时，Python 3 即可运行，不使用网络：
+## 验证与重建
 
 ```bash
 python3 scripts/prepare.py
+python3 scripts/refresh-dictionary.py
 python3 scripts/build-data.py
 python3 scripts/package-offline.py
 node scripts/validate.js
 ```
 
-文章源稿位于 `sources/articles.txt`；项目运行时直接读取预先生成的 JSON。离线 `.js` 文件是同一份 JSON 的脚本副本，为直接打开 HTML 提供支持，并非 AI 生成器。只加载当前章节并插入 DOM，词典在初始化时加载一次。
+资料已经全部内置，日常使用不需要运行这些命令。`refresh-dictionary.py` 可在提供完整 ECDICT CSV 时扩展正文词典；交付包含已经挑选好的词典快照，完全离线重建时可跳过此命令。
 
-## GitHub Pages
+`validate.js` 从原始词库重新计算期望范围，检查全部目标数、篇数、每组数量、重复、遗漏、词正文出现、中文义、音标词性、正文词典覆盖、逐段翻译、JSON、manifest、连续编号、上一下一与第一篇来源一致性。真实运行结果保存到 `VALIDATION.json`。浏览器检查保存到 `BROWSER-QA.json` 与 `ANNOTATION-QA.json`。
 
-把 **dist 内的全部文件**放到 GitHub 仓库根目录，并在 Settings → Pages 选择对应分支的根目录。保留 assets、data 和 sw.js 相对路径即可。也可将 dist 发布到 gh-pages 分支。无需构建命令或后端。
+## GitHub Pages / Vercel
 
-## Vercel
+当前完整项目位于你的 `siijururuo-afk/yzll.cet6` 仓库的 `cet6-reading/`，该仓库已有 GitHub Pages 从 main 根目录发布，入口位于 `cet6-reading/dist/`。
 
-导入整个项目，Framework Preset 选 Other，Build Command 留空，Output Directory 设置为 **dist**。不设置环境变量即可部署。也可直接上传 dist 的静态内容。
+新仓库：把 dist 里的全部文件复制到仓库根目录，在 Settings → Pages 选择相应分支根目录；或把整个项目放在仓库子目录，访问该子目录下 dist 的入口。不需要后端和 API Key。
 
-## 文件结构
+Vercel：导入项目，Framework Preset 选 Other，Build Command 留空，Output Directory 设 dist。
 
-- `dist/index.html`：网站入口
-- `dist/assets/style.css`、`app.js`：样式与交互
-- `dist/data/vocabulary.json`：全部唯一目标词及来源字段
-- `dist/data/dictionary.json`：词典与原形映射
-- `dist/data/manifest.json`：真实总数、文章目录与导航
-- `dist/data/articles/day-001.json` 至 `day-026.json`：26 篇完整双语文章
-- `dist/data/**/*.js`：与 JSON 对应的直接打开兼容副本
-- `dist/sw.js`：网络版离线缓存
-- `sources/`：词库快照、原稿、补充资料与来源审计
-- `scripts/validate.js`：完整性校验
-- `serve.py`：可选的零依赖本地服务器
-- `VALIDATION.json`：实际运行校验报告
-- `BROWSER-QA.json`：浏览器检查报告
+## 项目结构
+
+- dist/index.html：入口；assets：样式、词典交互、批注工具。
+- dist/data/vocabulary.json：完整目标词及全部原始记录。
+- dist/data/dictionary.json：词典及正文词形映射。
+- dist/data/manifest.json：真实目录、数量和导航。
+- dist/data/articles/day-001.json … day-106.json：文章数据；文件名为内部编号，页面显示中文篇次。
+- data 下同名 .js：直接打开时使用的离线数据副本。
+- sources/full-articles：106 篇原创源稿；full-groups.json：固定分组。
+- sources/cet_full_list.json：完整源快照；data-audit.json：范围审计。
+- scripts：重建、验证和浏览器检查脚本；serve.py：可选本地服务器。
 
 ## 许可
 
-CETVocabulary 数据依 CC BY-NC-SA 4.0 使用，必须署名、非商业使用、相同方式共享。捆绑数据与原创学习文章按 CC BY-NC-SA 4.0 提供；网站代码按 MIT 提供。ECDICT 按其 MIT 许可提供，许可证原文位于 sources。请保留来源和许可说明。参考仓库只借鉴语言难度并使用其词汇字段，未复制试卷或其应用代码到本网站。
+CETVocabulary 词库依 CC BY-NC-SA 4.0 使用，需署名、非商业使用、相同方式共享。捆绑学习数据和原创文章按 CC BY-NC-SA 4.0 提供，网站代码 MIT。ECDICT 按其 MIT 许可提供。原许可说明保留在 sources 内；未复制参考仓库的考试原文或应用代码。
